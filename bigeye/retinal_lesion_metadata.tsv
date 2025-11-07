@@ -1,0 +1,8 @@
+lesion_name	grayscale_value	one_hot_value	hex_value	weight_map_value
+background	0	0	#000000	1
+microaneurysm	101	1	#ff5cf4	8
+exudate 	102	2	#36f029	5
+cotton wool spot	103	3	#ffb81f	5
+hemorrhage	104	4	#3cd6b7	7
+neovascularization 	106	5	#fc0526	6
+laser_scar 	107	6	#b605fc	3
