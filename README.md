@@ -1,2 +1,2 @@
-# BigEye
-Explainable Framework for Diabetic Retinopathy Stage Prediction 
+
+<img src="assets/logo.png" alt="Logo" height="200">
