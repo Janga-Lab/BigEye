@@ -1,0 +1,758 @@
+﻿file_id,file_path,dr_stage
+556,,PDR
+557,,PDR
+558,,PDR
+559,,PDR
+560,,PDR
+561,,PDR
+562,,PDR
+563,,PDR
+564,,PDR
+565,,PDR
+566,,PDR
+567,,PDR
+568,,PDR
+569,,PDR
+570,,PDR
+571,,PDR
+572,,PDR
+573,,PDR
+574,,PDR
+575,,PDR
+576,,PDR
+577,,PDR
+578,,PDR
+579,,PDR
+580,,PDR
+581,,PDR
+582,,PDR
+583,,PDR
+584,,PDR
+585,,PDR
+586,,PDR
+587,,PDR
+588,,PDR
+589,,PDR
+590,,PDR
+591,,PDR
+592,,PDR
+593,,PDR
+594,,PDR
+595,,PDR
+596,,PDR
+597,,PDR
+598,,PDR
+599,,PDR
+600,,PDR
+601,,PDR
+602,,PDR
+603,,PDR
+604,,PDR
+605,,PDR
+606,,PDR
+607,,PDR
+608,,PDR
+609,,PDR
+610,,PDR
+611,,PDR
+612,,PDR
+613,,PDR
+614,,PDR
+615,,PDR
+616,,PDR
+617,,PDR
+618,,PDR
+619,,PDR
+620,,PDR
+621,,PDR
+622,,PDR
+623,,PDR
+624,,PDR
+625,,PDR
+626,,PDR
+627,,PDR
+628,,PDR
+629,,PDR
+630,,PDR
+631,,PDR
+632,,PDR
+633,,PDR
+634,,PDR
+635,,PDR
+636,,PDR
+637,,PDR
+638,,PDR
+639,,PDR
+640,,PDR
+641,,PDR
+642,,PDR
+643,,PDR
+644,,PDR
+645,,PDR
+646,,PDR
+647,,PDR
+648,,PDR
+649,,PDR
+650,,PDR
+651,,PDR
+652,,PDR
+653,,PDR
+654,,PDR
+655,,PDR
+656,,PDR
+657,,PDR
+658,,PDR
+659,,PDR
+660,,PDR
+661,,PDR
+662,,PDR
+663,,PDR
+664,,PDR
+665,,PDR
+666,,PDR
+667,,PDR
+668,,PDR
+669,,PDR
+670,,PDR
+671,,PDR
+672,,PDR
+673,,PDR
+674,,PDR
+675,,PDR
+676,,PDR
+677,,PDR
+678,,PDR
+679,,PDR
+680,,PDR
+681,,PDR
+682,,PDR
+683,,PDR
+684,,PDR
+685,,PDR
+686,,PDR
+687,,PDR
+688,,PDR
+689,,PDR
+690,,PDR
+691,,PDR
+692,,PDR
+693,,PDR
+694,,PDR
+695,,PDR
+696,,PDR
+697,,PDR
+698,,PDR
+699,,PDR
+700,,PDR
+701,,PDR
+702,,PDR
+703,,PDR
+704,,PDR
+705,,PDR
+706,,PDR
+707,,PDR
+708,,PDR
+709,,PDR
+710,,PDR
+711,,PDR
+712,,PDR
+713,,PDR
+714,,PDR
+715,,PDR
+716,,PDR
+717,,PDR
+718,,PDR
+719,,PDR
+720,,PDR
+721,,PDR
+722,,PDR
+723,,PDR
+724,,PDR
+725,,PDR
+726,,PDR
+727,,PDR
+728,,PDR
+729,,PDR
+730,,PDR
+731,,PDR
+732,,PDR
+733,,PDR
+734,,PDR
+735,,PDR
+736,,PDR
+737,,PDR
+738,,PDR
+739,,PDR
+740,,PDR
+741,,PDR
+742,,PDR
+743,,PDR
+744,,PDR
+745,,PDR
+746,,PDR
+747,,PDR
+748,,PDR
+749,,PDR
+750,,PDR
+751,,PDR
+752,,PDR
+753,,PDR
+754,,PDR
+755,,PDR
+756,,PDR
+757,,PDR
+188,,mild NPDR
+189,,mild NPDR
+190,,mild NPDR
+191,,mild NPDR
+192,,moderate NPDR
+193,,moderate NPDR
+194,,moderate NPDR
+195,,moderate NPDR
+196,,moderate NPDR
+197,,moderate NPDR
+198,,moderate NPDR
+199,,moderate NPDR
+200,,moderate NPDR
+201,,moderate NPDR
+202,,moderate NPDR
+203,,moderate NPDR
+204,,moderate NPDR
+205,,moderate NPDR
+206,,moderate NPDR
+207,,moderate NPDR
+208,,moderate NPDR
+209,,moderate NPDR
+210,,moderate NPDR
+211,,moderate NPDR
+212,,moderate NPDR
+213,,moderate NPDR
+214,,moderate NPDR
+215,,moderate NPDR
+216,,moderate NPDR
+217,,moderate NPDR
+218,,moderate NPDR
+219,,moderate NPDR
+220,,moderate NPDR
+221,,moderate NPDR
+222,,moderate NPDR
+223,,moderate NPDR
+224,,moderate NPDR
+225,,moderate NPDR
+226,,moderate NPDR
+227,,moderate NPDR
+228,,moderate NPDR
+229,,moderate NPDR
+230,,moderate NPDR
+231,,moderate NPDR
+232,,moderate NPDR
+233,,moderate NPDR
+234,,moderate NPDR
+235,,moderate NPDR
+236,,moderate NPDR
+237,,moderate NPDR
+238,,moderate NPDR
+239,,moderate NPDR
+240,,moderate NPDR
+241,,moderate NPDR
+242,,moderate NPDR
+243,,moderate NPDR
+244,,moderate NPDR
+245,,moderate NPDR
+246,,moderate NPDR
+247,,moderate NPDR
+248,,moderate NPDR
+249,,moderate NPDR
+250,,moderate NPDR
+251,,moderate NPDR
+252,,moderate NPDR
+253,,moderate NPDR
+254,,moderate NPDR
+255,,moderate NPDR
+256,,moderate NPDR
+257,,moderate NPDR
+258,,moderate NPDR
+259,,moderate NPDR
+260,,moderate NPDR
+261,,moderate NPDR
+262,,moderate NPDR
+263,,moderate NPDR
+264,,moderate NPDR
+265,,moderate NPDR
+266,,moderate NPDR
+267,,moderate NPDR
+268,,moderate NPDR
+269,,moderate NPDR
+270,,moderate NPDR
+271,,moderate NPDR
+1,,no DR
+10,,no DR
+100,,no DR
+101,,no DR
+102,,no DR
+103,,no DR
+104,,no DR
+105,,no DR
+106,,no DR
+107,,no DR
+108,,no DR
+109,,no DR
+11,,no DR
+110,,no DR
+111,,no DR
+112,,no DR
+113,,no DR
+114,,no DR
+115,,no DR
+116,,no DR
+117,,no DR
+118,,no DR
+119,,no DR
+12,,no DR
+120,,no DR
+121,,no DR
+122,,no DR
+123,,no DR
+124,,no DR
+125,,no DR
+126,,no DR
+127,,no DR
+128,,no DR
+129,,no DR
+13,,no DR
+130,,no DR
+131,,no DR
+132,,no DR
+133,,no DR
+134,,no DR
+135,,no DR
+136,,no DR
+137,,no DR
+138,,no DR
+139,,no DR
+14,,no DR
+140,,no DR
+141,,no DR
+142,,no DR
+143,,no DR
+144,,no DR
+145,,no DR
+146,,no DR
+147,,no DR
+148,,no DR
+149,,no DR
+15,,no DR
+150,,no DR
+151,,no DR
+152,,no DR
+153,,no DR
+154,,no DR
+155,,no DR
+156,,no DR
+157,,no DR
+158,,no DR
+159,,no DR
+16,,no DR
+160,,no DR
+161,,no DR
+162,,no DR
+163,,no DR
+164,,no DR
+165,,no DR
+166,,no DR
+167,,no DR
+168,,no DR
+169,,no DR
+17,,no DR
+170,,no DR
+171,,no DR
+172,,no DR
+173,,no DR
+174,,no DR
+175,,no DR
+176,,no DR
+177,,no DR
+178,,no DR
+179,,no DR
+18,,no DR
+180,,no DR
+181,,no DR
+182,,no DR
+183,,no DR
+184,,no DR
+185,,no DR
+186,,no DR
+187,,no DR
+19,,no DR
+2,,no DR
+20,,no DR
+21,,no DR
+22,,no DR
+23,,no DR
+24,,no DR
+25,,no DR
+26,,no DR
+27,,no DR
+28,,no DR
+29,,no DR
+3,,no DR
+30,,no DR
+31,,no DR
+32,,no DR
+33,,no DR
+34,,no DR
+35,,no DR
+36,,no DR
+37,,no DR
+38,,no DR
+39,,no DR
+4,,no DR
+40,,no DR
+41,,no DR
+42,,no DR
+43,,no DR
+44,,no DR
+45,,no DR
+46,,no DR
+47,,no DR
+48,,no DR
+49,,no DR
+5,,no DR
+50,,no DR
+51,,no DR
+52,,no DR
+53,,no DR
+54,,no DR
+55,,no DR
+56,,no DR
+57,,no DR
+58,,no DR
+59,,no DR
+6,,no DR
+60,,no DR
+61,,no DR
+62,,no DR
+63,,no DR
+64,,no DR
+65,,no DR
+66,,no DR
+67,,no DR
+68,,no DR
+69,,no DR
+7,,no DR
+70,,no DR
+71,,no DR
+72,,no DR
+73,,no DR
+74,,no DR
+75,,no DR
+76,,no DR
+77,,no DR
+78,,no DR
+79,,no DR
+8,,no DR
+80,,no DR
+81,,no DR
+82,,no DR
+83,,no DR
+84,,no DR
+85,,no DR
+86,,no DR
+87,,no DR
+88,,no DR
+89,,no DR
+9,,no DR
+90,,no DR
+91,,no DR
+92,,no DR
+93,,no DR
+94,,no DR
+95,,no DR
+96,,no DR
+97,,no DR
+98,,no DR
+99,,no DR
+272,,severe NPDR
+273,,severe NPDR
+274,,severe NPDR
+275,,severe NPDR
+276,,severe NPDR
+277,,severe NPDR
+278,,severe NPDR
+279,,severe NPDR
+280,,severe NPDR
+281,,severe NPDR
+282,,severe NPDR
+283,,severe NPDR
+284,,severe NPDR
+285,,severe NPDR
+286,,severe NPDR
+287,,severe NPDR
+288,,severe NPDR
+289,,severe NPDR
+290,,severe NPDR
+291,,severe NPDR
+292,,severe NPDR
+293,,severe NPDR
+294,,severe NPDR
+295,,severe NPDR
+296,,severe NPDR
+297,,severe NPDR
+298,,severe NPDR
+299,,severe NPDR
+300,,severe NPDR
+301,,severe NPDR
+302,,severe NPDR
+303,,severe NPDR
+304,,severe NPDR
+305,,severe NPDR
+306,,severe NPDR
+307,,severe NPDR
+308,,severe NPDR
+309,,severe NPDR
+310,,severe NPDR
+311,,severe NPDR
+312,,severe NPDR
+313,,severe NPDR
+314,,severe NPDR
+315,,severe NPDR
+316,,severe NPDR
+317,,severe NPDR
+318,,severe NPDR
+319,,severe NPDR
+320,,severe NPDR
+321,,severe NPDR
+322,,severe NPDR
+323,,severe NPDR
+324,,severe NPDR
+325,,severe NPDR
+326,,severe NPDR
+327,,severe NPDR
+328,,severe NPDR
+329,,severe NPDR
+330,,severe NPDR
+331,,severe NPDR
+332,,severe NPDR
+333,,severe NPDR
+334,,severe NPDR
+335,,severe NPDR
+336,,severe NPDR
+337,,severe NPDR
+338,,severe NPDR
+339,,severe NPDR
+340,,severe NPDR
+341,,severe NPDR
+342,,severe NPDR
+343,,severe NPDR
+344,,severe NPDR
+345,,severe NPDR
+346,,severe NPDR
+347,,severe NPDR
+348,,severe NPDR
+349,,severe NPDR
+350,,severe NPDR
+351,,severe NPDR
+352,,severe NPDR
+353,,severe NPDR
+354,,severe NPDR
+355,,severe NPDR
+356,,severe NPDR
+357,,severe NPDR
+358,,severe NPDR
+359,,severe NPDR
+360,,severe NPDR
+361,,severe NPDR
+362,,severe NPDR
+363,,severe NPDR
+364,,severe NPDR
+365,,severe NPDR
+366,,severe NPDR
+367,,severe NPDR
+368,,severe NPDR
+369,,severe NPDR
+370,,severe NPDR
+371,,severe NPDR
+372,,severe NPDR
+373,,severe NPDR
+374,,severe NPDR
+375,,severe NPDR
+376,,severe NPDR
+377,,severe NPDR
+378,,severe NPDR
+379,,severe NPDR
+380,,severe NPDR
+381,,severe NPDR
+382,,severe NPDR
+383,,severe NPDR
+384,,severe NPDR
+385,,severe NPDR
+386,,severe NPDR
+387,,severe NPDR
+388,,severe NPDR
+389,,severe NPDR
+390,,severe NPDR
+391,,severe NPDR
+392,,severe NPDR
+393,,severe NPDR
+394,,severe NPDR
+395,,severe NPDR
+396,,severe NPDR
+397,,severe NPDR
+398,,severe NPDR
+399,,severe NPDR
+400,,severe NPDR
+401,,severe NPDR
+402,,severe NPDR
+403,,severe NPDR
+404,,severe NPDR
+405,,severe NPDR
+406,,severe NPDR
+407,,severe NPDR
+408,,severe NPDR
+409,,severe NPDR
+410,,severe NPDR
+411,,severe NPDR
+412,,severe NPDR
+413,,severe NPDR
+414,,severe NPDR
+415,,severe NPDR
+416,,severe NPDR
+417,,severe NPDR
+418,,severe NPDR
+419,,severe NPDR
+420,,severe NPDR
+421,,severe NPDR
+422,,severe NPDR
+423,,severe NPDR
+424,,severe NPDR
+425,,severe NPDR
+426,,severe NPDR
+427,,severe NPDR
+428,,severe NPDR
+429,,severe NPDR
+430,,severe NPDR
+431,,severe NPDR
+432,,severe NPDR
+433,,severe NPDR
+434,,severe NPDR
+435,,severe NPDR
+436,,severe NPDR
+437,,severe NPDR
+438,,severe NPDR
+439,,severe NPDR
+440,,severe NPDR
+441,,severe NPDR
+442,,severe NPDR
+443,,severe NPDR
+444,,severe NPDR
+445,,severe NPDR
+446,,severe NPDR
+447,,severe NPDR
+448,,severe NPDR
+449,,severe NPDR
+450,,severe NPDR
+451,,severe NPDR
+452,,severe NPDR
+453,,severe NPDR
+454,,severe NPDR
+455,,severe NPDR
+456,,severe NPDR
+457,,severe NPDR
+458,,severe NPDR
+459,,severe NPDR
+460,,severe NPDR
+461,,severe NPDR
+462,,severe NPDR
+463,,severe NPDR
+464,,severe NPDR
+465,,severe NPDR
+466,,severe NPDR
+467,,severe NPDR
+468,,severe NPDR
+469,,severe NPDR
+470,,severe NPDR
+471,,severe NPDR
+472,,severe NPDR
+473,,severe NPDR
+474,,severe NPDR
+475,,severe NPDR
+476,,severe NPDR
+477,,severe NPDR
+478,,severe NPDR
+479,,severe NPDR
+480,,severe NPDR
+481,,severe NPDR
+482,,severe NPDR
+483,,severe NPDR
+484,,severe NPDR
+485,,severe NPDR
+486,,severe NPDR
+487,,severe NPDR
+488,,severe NPDR
+489,,severe NPDR
+490,,severe NPDR
+491,,severe NPDR
+492,,severe NPDR
+493,,severe NPDR
+494,,severe NPDR
+495,,severe NPDR
+496,,severe NPDR
+497,,severe NPDR
+498,,severe NPDR
+499,,severe NPDR
+500,,severe NPDR
+501,,severe NPDR
+502,,severe NPDR
+503,,severe NPDR
+504,,severe NPDR
+505,,severe NPDR
+506,,severe NPDR
+507,,severe NPDR
+508,,severe NPDR
+509,,severe NPDR
+510,,severe NPDR
+511,,severe NPDR
+512,,severe NPDR
+513,,severe NPDR
+514,,severe NPDR
+515,,severe NPDR
+516,,severe NPDR
+517,,severe NPDR
+518,,severe NPDR
+519,,severe NPDR
+520,,severe NPDR
+521,,severe NPDR
+522,,severe NPDR
+523,,severe NPDR
+524,,severe NPDR
+525,,severe NPDR
+526,,severe NPDR
+527,,severe NPDR
+528,,severe NPDR
+529,,severe NPDR
+530,,severe NPDR
+531,,severe NPDR
+532,,severe NPDR
+533,,severe NPDR
+534,,severe NPDR
+535,,severe NPDR
+536,,severe NPDR
+537,,severe NPDR
+538,,severe NPDR
+539,,severe NPDR
+540,,severe NPDR
+541,,severe NPDR
+542,,severe NPDR
+543,,severe NPDR
+544,,severe NPDR
+545,,severe NPDR
+546,,severe NPDR
+547,,severe NPDR
+548,,severe NPDR
+549,,severe NPDR
+550,,severe NPDR
+551,,severe NPDR
+552,,severe NPDR
+553,,severe NPDR
+554,,severe NPDR
+555,,severe NPDR
