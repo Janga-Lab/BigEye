@@ -31,33 +31,51 @@ def standardize_data(data: tuple[np.array, np.array]) -> tuple[np.array, np.arra
     data_standardized = scaler.fit_transform(data)
     return data_standardized
 
-def safe_roc_auc_score(y_true, y_pred, num_classes):
+def safe_roc_auc_score(y_true, y_pred_proba, num_classes):
     """
-    Calculate ROC AUC score with handling for single-class cases.
-    Returns None if ROC AUC cannot be calculated.
+    Calculate ROC AUC score using probability predictions.
+    
+    FIXED: Now correctly uses probability scores instead of discrete predictions.
+    
+    Args:
+        y_true: True labels (integer encoded)
+        y_pred_proba: Predicted probabilities (n_samples x n_classes)
+        num_classes: Number of classes
+    
+    Returns:
+        AUC score or None if calculation fails
     """
     if len(np.unique(y_true)) < 2:
         return None
     
     try:
         y_true_cat = tf.keras.utils.to_categorical(y=y_true, num_classes=num_classes)
-        y_pred_cat = tf.keras.utils.to_categorical(y=y_pred, num_classes=num_classes)
-        return roc_auc_score(y_true_cat, y_pred_cat, multi_class='ovo')
+        # CRITICAL FIX: Use probability predictions, not discrete class labels
+        return roc_auc_score(y_true_cat, y_pred_proba, multi_class='ovo')
     except ValueError:
         return None
 
-def safe_log_loss(y_true, y_pred, num_classes):
+def safe_log_loss(y_true, y_pred_proba, num_classes):
     """
-    Calculate Log Loss with handling for single-class cases.
-    Returns None if Log Loss cannot be calculated.
+    Calculate Log Loss using probability predictions.
+    
+    FIXED: Now correctly uses probability scores instead of discrete predictions.
+    
+    Args:
+        y_true: True labels (integer encoded)
+        y_pred_proba: Predicted probabilities (n_samples x n_classes)
+        num_classes: Number of classes
+    
+    Returns:
+        Log loss or None if calculation fails
     """
     if len(np.unique(y_true)) < 2:
         return None
     
     try:
-        y_true_cat = tf.keras.utils.to_categorical(y=y_true, num_classes=num_classes)
-        y_pred_cat = tf.keras.utils.to_categorical(y=y_pred, num_classes=num_classes)
-        return log_loss(y_true_cat, y_pred_cat)
+        # For log_loss, we can pass probabilities directly without one-hot encoding y_true
+        # But to maintain consistency with AUC calculation, we'll keep the same approach
+        return log_loss(y_true, y_pred_proba)
     except ValueError:
         return None
 
@@ -90,11 +108,6 @@ for m in metrics_list:
     all_metrics[m] = []
     all_metrics[f"val_{m}"] = []
     all_metrics[f"test_{m}"] = []
-
-# Track best model
-best_test_accuracy = 0
-best_model = None
-best_fold_id = None
 
 for outer_fold, (inner_idx, outer_idx) in enumerate(outer_kf.split(data, labels_one_hot)):
 
@@ -139,14 +152,18 @@ for outer_fold, (inner_idx, outer_idx) in enumerate(outer_kf.split(data, labels_
         """
         Training Performance
         """
+        # Get discrete predictions for precision/recall/F1/accuracy
         p_train = model.predict(x_train)
+        # CRITICAL FIX: Get probability predictions for AUC and log loss
+        p_train_proba = model.predict_proba(x_train)
 
         train_precision = precision_score(y_train, p_train, average="macro", zero_division=0)
         train_recall = recall_score(y_train, p_train, average="macro", zero_division=0)
         train_f1_score = f1_score(y_train, p_train, average="macro", zero_division=0)
         train_accuracy = accuracy_score(y_train, p_train)
-        train_auc = safe_roc_auc_score(y_train, p_train, num_classes)
-        train_loss = safe_log_loss(y_train, p_train, num_classes)
+        # CRITICAL FIX: Pass probabilities to AUC and log loss calculations
+        train_auc = safe_roc_auc_score(y_train, p_train_proba, num_classes)
+        train_loss = safe_log_loss(y_train, p_train_proba, num_classes)
 
         all_metrics["precision"].append(train_precision)
         all_metrics["recall"].append(train_recall)
@@ -158,14 +175,18 @@ for outer_fold, (inner_idx, outer_idx) in enumerate(outer_kf.split(data, labels_
         """
         Validation Performance
         """
+        # Get discrete predictions for precision/recall/F1/accuracy
         p_val = model.predict(x_val)
+        # CRITICAL FIX: Get probability predictions for AUC and log loss
+        p_val_proba = model.predict_proba(x_val)
 
         val_precision = precision_score(y_val, p_val, average="macro", zero_division=0)
         val_recall = recall_score(y_val, p_val, average="macro", zero_division=0)
         val_f1_score = f1_score(y_val, p_val, average="macro", zero_division=0)
         val_accuracy = accuracy_score(y_val, p_val)
-        val_auc = safe_roc_auc_score(y_val, p_val, num_classes)
-        val_loss = safe_log_loss(y_val, p_val, num_classes)
+        # CRITICAL FIX: Pass probabilities to AUC and log loss calculations
+        val_auc = safe_roc_auc_score(y_val, p_val_proba, num_classes)
+        val_loss = safe_log_loss(y_val, p_val_proba, num_classes)
 
         all_metrics["val_precision"].append(val_precision)
         all_metrics["val_recall"].append(val_recall)
@@ -177,14 +198,18 @@ for outer_fold, (inner_idx, outer_idx) in enumerate(outer_kf.split(data, labels_
         """
         Test Performance
         """
+        # Get discrete predictions for precision/recall/F1/accuracy
         p_test = model.predict(x_test)
+        # CRITICAL FIX: Get probability predictions for AUC and log loss
+        p_test_proba = model.predict_proba(x_test)
 
         test_precision = precision_score(y_test, p_test, average="macro", zero_division=0)
         test_recall = recall_score(y_test, p_test, average="macro", zero_division=0)
         test_f1_score = f1_score(y_test, p_test, average="macro", zero_division=0)
         test_accuracy = accuracy_score(y_test, p_test)
-        test_auc = safe_roc_auc_score(y_test, p_test, num_classes)
-        test_loss = safe_log_loss(y_test, p_test, num_classes)
+        # CRITICAL FIX: Pass probabilities to AUC and log loss calculations
+        test_auc = safe_roc_auc_score(y_test, p_test_proba, num_classes)
+        test_loss = safe_log_loss(y_test, p_test_proba, num_classes)
 
         all_metrics["test_precision"].append(test_precision)
         all_metrics["test_recall"].append(test_recall)
@@ -192,12 +217,6 @@ for outer_fold, (inner_idx, outer_idx) in enumerate(outer_kf.split(data, labels_
         all_metrics["test_accuracy"].append(test_accuracy)
         all_metrics["test_auc"].append(test_auc)
         all_metrics["test_loss"].append(test_loss)
-
-        # Track best model based on test accuracy
-        if test_accuracy > best_test_accuracy:
-            best_test_accuracy = test_accuracy
-            best_model = model
-            best_fold_id = nested_id
 
         # Save individual fold results
         fold_info = {
@@ -283,30 +302,3 @@ with open('lgbm_nested_cv_results.pickle', 'wb') as handle:
     )
 
 print("\nResults saved to: lgbm_nested_cv_results.pickle")
-
-# Save best model
-if best_model is not None:
-    # Save LightGBM model in native text format
-    model_filename = f'{classifier_name}_best_model.txt'
-    best_model.booster_.save_model(model_filename)
-    
-    # Save complete model (with weights) as pickle
-    model_pickle_filename = f'{classifier_name}_best_model_complete.pickle'
-    with open(model_pickle_filename, 'wb') as handle:
-        pickle.dump(best_model, handle, protocol=pickle.HIGHEST_PROTOCOL)
-    
-    # Save metadata as pickle
-    with open(f'{classifier_name}_best_model.pickle', 'wb') as handle:
-        pickle.dump({
-            'fold_id': best_fold_id,
-            'test_accuracy': best_test_accuracy,
-            'label_encoder': label_encoder,
-            'num_classes': num_classes,
-            'params': params
-        }, handle, protocol=pickle.HIGHEST_PROTOCOL)
-    
-    print(f"\nBest model saved to: {model_filename}")
-    print(f"Complete model (with weights) saved to: {model_pickle_filename}")
-    print(f"Model metadata saved to: {classifier_name}_best_model.pickle")
-    print(f"Best fold: {best_fold_id}")
-    print(f"Test accuracy: {best_test_accuracy:.4f}")
