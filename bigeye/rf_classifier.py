@@ -39,10 +39,19 @@ def standardize_data(data: tuple[np.array, np.array]) -> tuple[np.array, np.arra
     data_standardized = scaler.fit_transform(data)
     return data_standardized
 
-def safe_roc_auc_score(y_true, y_pred, num_classes):
+def safe_roc_auc_score(y_true, y_pred_proba, num_classes):
     """
-    Calculate ROC AUC score with handling for single-class cases.
-    Returns None if ROC AUC cannot be calculated.
+    Calculate ROC AUC score using probability predictions.
+    
+    FIXED: Now correctly uses probability scores instead of discrete predictions.
+    
+    Args:
+        y_true: True labels (integer encoded)
+        y_pred_proba: Predicted probabilities (n_samples x n_classes)
+        num_classes: Number of classes
+    
+    Returns:
+        AUC score or None if calculation fails
     """
     # Check if only one class is present
     if len(np.unique(y_true)) < 2:
@@ -50,10 +59,8 @@ def safe_roc_auc_score(y_true, y_pred, num_classes):
     
     try:
         y_true_cat = tf.keras.utils.to_categorical(y=y_true, num_classes=num_classes)
-        # RF predict returns class labels; for AUC we might technically want probas, 
-        # but to match your SVM structure exactly we use the labels converted to one-hot here.
-        y_pred_cat = tf.keras.utils.to_categorical(y=y_pred, num_classes=num_classes)
-        return roc_auc_score(y_true_cat, y_pred_cat, multi_class='ovr')
+        # CRITICAL FIX: Use probability predictions, not discrete class labels
+        return roc_auc_score(y_true_cat, y_pred_proba, multi_class='ovr')
     except ValueError:
         return None
 
@@ -87,11 +94,6 @@ for m in metrics:
     all_metrics[f"val_{m}"] = []
     all_metrics[f"test_{m}"] = []
 
-# Track best model
-best_test_accuracy = 0
-best_model = None
-best_fold_id = None
-
 for outer_fold, (inner_idx, outer_idx) in enumerate(outer_kf.split(data, labels_one_hot)):
 
     x_test = data.iloc[outer_idx]
@@ -118,13 +120,17 @@ for outer_fold, (inner_idx, outer_idx) in enumerate(outer_kf.split(data, labels_
         """
         Training Performance
         """
+        # Get discrete predictions for precision/recall/F1/accuracy
         p_train = model.predict(x_train)
+        # CRITICAL FIX: Get probability predictions for AUC
+        p_train_proba = model.predict_proba(x_train)
         
         train_precision = precision_score(y_train, p_train, average="macro", zero_division=0)
         train_recall = recall_score(y_train, p_train, average="macro", zero_division=0)
         train_f1_score = f1_score(y_train, p_train, average="macro", zero_division=0)
         train_accuracy = accuracy_score(y_train, p_train)
-        train_auc = safe_roc_auc_score(y_train, p_train, num_classes)
+        # CRITICAL FIX: Pass probabilities to AUC calculation
+        train_auc = safe_roc_auc_score(y_train, p_train_proba, num_classes)
 
         all_metrics["precision"].append(train_precision)
         all_metrics["recall"].append(train_recall)
@@ -135,13 +141,17 @@ for outer_fold, (inner_idx, outer_idx) in enumerate(outer_kf.split(data, labels_
         """
         Validation Performance
         """
+        # Get discrete predictions for precision/recall/F1/accuracy
         p_val = model.predict(x_val)
+        # CRITICAL FIX: Get probability predictions for AUC
+        p_val_proba = model.predict_proba(x_val)
         
         val_precision = precision_score(y_val, p_val, average="macro", zero_division=0)
         val_recall = recall_score(y_val, p_val, average="macro", zero_division=0)
         val_f1_score = f1_score(y_val, p_val, average="macro", zero_division=0)
         val_accuracy = accuracy_score(y_val, p_val)
-        val_auc = safe_roc_auc_score(y_val, p_val, num_classes)
+        # CRITICAL FIX: Pass probabilities to AUC calculation
+        val_auc = safe_roc_auc_score(y_val, p_val_proba, num_classes)
 
         all_metrics["val_precision"].append(val_precision)
         all_metrics["val_recall"].append(val_recall)
@@ -152,25 +162,23 @@ for outer_fold, (inner_idx, outer_idx) in enumerate(outer_kf.split(data, labels_
         """
         Test Performance
         """ 
+        # Get discrete predictions for precision/recall/F1/accuracy
         p_test = model.predict(x_test)
+        # CRITICAL FIX: Get probability predictions for AUC
+        p_test_proba = model.predict_proba(x_test)
         
         test_precision = precision_score(y_test, p_test, average="macro", zero_division=0)
         test_recall = recall_score(y_test, p_test, average="macro", zero_division=0)
         test_f1_score = f1_score(y_test, p_test, average="macro", zero_division=0)
         test_accuracy = accuracy_score(y_test, p_test)
-        test_auc = safe_roc_auc_score(y_test, p_test, num_classes)
+        # CRITICAL FIX: Pass probabilities to AUC calculation
+        test_auc = safe_roc_auc_score(y_test, p_test_proba, num_classes)
 
         all_metrics["test_precision"].append(test_precision)
         all_metrics["test_recall"].append(test_recall)
         all_metrics["test_f1_score"].append(test_f1_score)
         all_metrics["test_accuracy"].append(test_accuracy)
         all_metrics["test_auc"].append(test_auc)
-
-        # Track best model based on test accuracy
-        if test_accuracy > best_test_accuracy:
-            best_test_accuracy = test_accuracy
-            best_model = model
-            best_fold_id = nested_id
 
         fold_info = {
             "precision" : train_precision,
@@ -182,7 +190,7 @@ for outer_fold, (inner_idx, outer_idx) in enumerate(outer_kf.split(data, labels_
             "val_recall" : val_recall,
             "val_f1_score" : val_f1_score,
             "val_accuracy" : val_accuracy,
-            "val_auc" : test_auc,
+            "val_auc" : val_auc,  # FIXED: was incorrectly set to test_auc
             "test_precision" : test_precision,
             "test_recall" : test_recall,
             "test_f1_score" : test_f1_score,
@@ -251,17 +259,3 @@ with open('rf_nested_cv_results.pickle', 'wb') as handle:
     )
 
 print("\nResults saved to: rf_nested_cv_results.pickle")
-
-# Save best model
-if best_model is not None:
-    with open(f'{classifier_name}_best_model.pickle', 'wb') as handle:
-        pickle.dump({
-            'model': best_model,
-            'fold_id': best_fold_id,
-            'test_accuracy': best_test_accuracy,
-            'label_encoder': label_encoder
-        }, handle, protocol=pickle.HIGHEST_PROTOCOL)
-    
-    print(f"\nBest model saved to: {classifier_name}_best_model.pickle")
-    print(f"Best fold: {best_fold_id}")
-    print(f"Test accuracy: {best_test_accuracy:.4f}")
