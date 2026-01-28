@@ -41,10 +41,19 @@ def standardize_data(data: tuple[np.array, np.array]) -> tuple[np.array, np.arra
     data_standardized = scaler.fit_transform(data)
     return data_standardized
 
-def safe_roc_auc_score(y_true, y_pred, num_classes):
+def safe_roc_auc_score(y_true, decision_scores, num_classes):
     """
-    Calculate ROC AUC score with handling for single-class cases.
-    Returns None if ROC AUC cannot be calculated.
+    Calculate ROC AUC score using SVM decision function scores.
+    
+    FIXED: Now correctly uses decision function scores instead of discrete predictions.
+    
+    Args:
+        y_true: True labels (integer encoded)
+        decision_scores: Decision function scores (n_samples x n_classes for OvR)
+        num_classes: Number of classes
+    
+    Returns:
+        AUC score or None if calculation fails
     """
     # Check if only one class is present
     if len(np.unique(y_true)) < 2:
@@ -52,8 +61,9 @@ def safe_roc_auc_score(y_true, y_pred, num_classes):
     
     try:
         y_true_cat = tf.keras.utils.to_categorical(y=y_true, num_classes=num_classes)
-        y_pred_cat = tf.keras.utils.to_categorical(y=y_pred, num_classes=num_classes)
-        return roc_auc_score(y_true_cat, y_pred_cat, multi_class='ovo')
+        # CRITICAL FIX: Use decision function scores directly
+        # For multi-class OvR SVM, decision_function returns scores for each class
+        return roc_auc_score(y_true_cat, decision_scores, multi_class='ovo')
     except ValueError:
         return None
 
@@ -108,19 +118,25 @@ for outer_fold, (inner_idx, outer_idx) in enumerate(outer_kf.split(data, labels_
         y_train = inner_labels[train_idx]
         y_val = inner_labels[val_idx]
         
+        # CRITICAL FIX: Use decision_function=True for AUC calculation
+        # This is implicitly available with SVC
         model = svm.SVC(kernel='linear')
         model.fit(x_train, y_train)
 
         """
         Training Performance
         """
+        # Get discrete predictions for precision/recall/F1/accuracy
         p_train = model.predict(x_train)
+        # CRITICAL FIX: Get decision function scores for AUC
+        train_decision_scores = model.decision_function(x_train)
         
         train_precision = precision_score(y_train, p_train, average="macro", zero_division=0)
         train_recall = recall_score(y_train, p_train, average="macro", zero_division=0)
         train_f1_score = f1_score(y_train, p_train, average="macro", zero_division=0)
         train_accuracy = accuracy_score(y_train, p_train)
-        train_auc = safe_roc_auc_score(y_train, p_train, num_classes)
+        # CRITICAL FIX: Pass decision scores to AUC calculation
+        train_auc = safe_roc_auc_score(y_train, train_decision_scores, num_classes)
 
         all_metrics["precision"].append(train_precision)
         all_metrics["recall"].append(train_recall)
@@ -131,13 +147,17 @@ for outer_fold, (inner_idx, outer_idx) in enumerate(outer_kf.split(data, labels_
         """
         Validation Performance
         """
+        # Get discrete predictions for precision/recall/F1/accuracy
         p_val = model.predict(x_val)
+        # CRITICAL FIX: Get decision function scores for AUC
+        val_decision_scores = model.decision_function(x_val)
         
         val_precision = precision_score(y_val, p_val, average="macro", zero_division=0)
         val_recall = recall_score(y_val, p_val, average="macro", zero_division=0)
         val_f1_score = f1_score(y_val, p_val, average="macro", zero_division=0)
         val_accuracy = accuracy_score(y_val, p_val)
-        val_auc = safe_roc_auc_score(y_val, p_val, num_classes)
+        # CRITICAL FIX: Pass decision scores to AUC calculation
+        val_auc = safe_roc_auc_score(y_val, val_decision_scores, num_classes)
 
         all_metrics["val_precision"].append(val_precision)
         all_metrics["val_recall"].append(val_recall)
@@ -148,13 +168,17 @@ for outer_fold, (inner_idx, outer_idx) in enumerate(outer_kf.split(data, labels_
         """
         Test Performance
         """ 
+        # Get discrete predictions for precision/recall/F1/accuracy
         p_test = model.predict(x_test)
+        # CRITICAL FIX: Get decision function scores for AUC
+        test_decision_scores = model.decision_function(x_test)
         
         test_precision = precision_score(y_test, p_test, average="macro", zero_division=0)
         test_recall = recall_score(y_test, p_test, average="macro", zero_division=0)
         test_f1_score = f1_score(y_test, p_test, average="macro", zero_division=0)
         test_accuracy = accuracy_score(y_test, p_test)
-        test_auc = safe_roc_auc_score(y_test, p_test, num_classes)
+        # CRITICAL FIX: Pass decision scores to AUC calculation
+        test_auc = safe_roc_auc_score(y_test, test_decision_scores, num_classes)
 
         all_metrics["test_precision"].append(test_precision)
         all_metrics["test_recall"].append(test_recall)
@@ -178,7 +202,7 @@ for outer_fold, (inner_idx, outer_idx) in enumerate(outer_kf.split(data, labels_
             "val_recall" : val_recall,
             "val_f1_score" : val_f1_score,
             "val_accuracy" : val_accuracy,
-            "val_auc" : test_auc,
+            "val_auc" : val_auc,  # FIXED: was incorrectly set to test_auc
             "test_precision" : test_precision,
             "test_recall" : test_recall,
             "test_f1_score" : test_f1_score,
